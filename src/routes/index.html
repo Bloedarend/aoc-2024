@@ -11,17 +11,86 @@
         <header>
             <div class="row" style="flex-grow: 1;">
                 <span class="star">*</span>
-                <h1 id="title">Advent of Code {{year}}</h1>
+                <a class="icon-button" href="/">
+                    <h1>Advent of Code {{year}}</h1>
+                </a>
             </div>
             <div class="row">
                 <a class="btn row" style="line-height: 0" href="{{repository}}">
                     <img src="/assets/github-icon.svg" alt="github" height="24rem" width="24rem" />
-                    <span>{{name}}</span>
+                    <span style="margin-top: 0.1rem;">{{name}}</span>
                 </a>
             </div>
         </header>
+
         <main>
-            <p>hello</p>
+            <div class="row-to-col" style="height: 100%;">
+                <div class="card w-70-to-100" style="height: 100%;">
+                    <h2 class="card-header">Solutions</h2>
+                    <div id="days" class="row" style="flex-wrap: wrap;"></div>
+                </div>
+                <div class="card w-30-to-100" style="height: 100%;">
+                    <h2 class="card-header">About</h2>
+                    <p>This website contains the solutions to the <a class="highlight" href="https://adventofcode.com/{{year}}">Advent of Code {{year}}</a> challenges.</p>
+                    <p>The days that are <span class="highlight">highlighted</span> represent those that have been completed.</p>
+                    <p>Click on any of the solutions to view the source code and see the output result.</p>
+
+                </div>
+            </div>
         </main>
+
+        <script defer async type="module">
+            const days = document.getElementById("days");
+
+            for (let day = 1; day <= 25; day++) {
+                const a = document.createElement("a");
+                a.href = `/day/${day}`;
+                a.classList.add("day");
+                a.textContent = day;
+
+                try {
+                    const completed = await fetch(`/solutions/${day}/main.ts`);
+                    a.setAttribute("completed", completed.ok);
+                } catch(_) { }
+
+                days.appendChild(a);
+            }
+        </script>
+
+        <style>
+            #days {
+                padding-top: 0.5rem;
+            }
+
+            .day {
+                all: unset;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                color: var(--text);
+                background-color: var(--button);
+                aspect-ratio: 1 / 1;
+                min-width: 2rem;
+                padding: 0.5rem;
+                border-radius: 0.5rem;
+                font-size: 1.5rem;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .day:hover {
+                background-color: var(--button-hover);
+            }
+
+            .day:active {
+                scale: 0.95;
+            }
+
+            .day[completed=true] {
+                color: var(--highlight);
+                text-shadow: 0 0 5px var(--highlight);
+            }
+        </style>
     </body>
 </html>
