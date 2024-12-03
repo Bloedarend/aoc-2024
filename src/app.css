@@ -4,15 +4,23 @@
         src: url("https://fonts.google.com/share?selection.family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900");
     }
 
+    --text: hsl(0, 0%, 80%);
+    --background: hsl(240, 40%, 10%);
+    --card: hsl(240, 40%, 15%);
+    --button: hsl(240, 40%, 30%);
+    --button-hover: hsl(240, 40%, 35%);
+    --text-dimmed: hsl(240, 20%, 40%);
+    --highlight: hsl(60, 100%, 70%);
+
+    --hljs-keyword: #009900;
+    --hljs-function: #00cc00;
+    --hljs-string: #ffff66;
+    --hljs-literal: #e3b585;
+
     font-family: Kanit, sans-serif, serif;
     font-size: 1.5rem;
-    background: hsl(240, 40%, 10%);
-    color: hsl(0, 0%, 80%);
-
-    --keyword: #009900;
-    --function: #00cc00;
-    --string: #ffff66;
-    --literal: #e3b585;
+    background: var(--background);
+    color: var(--text);
 }
 
 body {
@@ -22,6 +30,7 @@ body {
     align-items: center;
     overflow-x: hidden;
     margin: 0;
+    height: 100dvh;
 
     header {
         width: 75vw;
@@ -34,7 +43,7 @@ body {
 
     main {
         width: 75vw;
-        max-height: 50vh;
+        max-width: 75vw;
     }
 }
 
@@ -43,13 +52,13 @@ button, .btn {
     padding: 0.5rem;
     border-radius: 0.5rem;
     font-weight: bold;
-    color: hsl(0, 0%, 80%);
-    background-color: hsl(240, 40%, 30%);
+    color: var(--text);
+    background-color: var(--button);
     white-space: nowrap;
 }
 
 button:hover, .btn:hover {
-    background-color: hsl(240, 40%, 35%);
+    background-color: var(--button-hover);
     cursor: pointer;
 }
 
@@ -57,27 +66,54 @@ button:active, .btn:active {
     scale: 0.95;
 }
 
-button.primary, .btn.primary {
-    color: hsl(240, 40%, 10%);
-    background-color: hsl(60, 100%, 70%);
-}
-
-button.primary:hover, .btn.primary:hover {
-    color: hsl(240, 40%, 10%);
-    background-color: hsl(60, 100%, 75%);
-}
-
-button.secondary, .btn.secondary {
-    background-color: hsl(120, 100%, 30%);
-}
-
-button.secondary:hover, .btn.secondary:hover {
-    background-color: hsl(120, 100%, 35%);
+h1 {
+    white-space: wrap;
 }
 
 h2 {
     font-size: larger;
-    margin: 0.5rem 0 0 0.5rem;
+    margin: 0;
+}
+
+th, td {
+    align-items: center;
+    justify-content: start;
+    text-align: left;
+}
+
+select > option {
+    background-color: var(--card);
+    border-color: var(--text-dimmed);
+    padding: 2.25rem;
+}
+
+select {
+    all: unset; 
+    font-size: 0.75rem; 
+    padding: 0rem;
+    color: var(--text) !important;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+}
+
+.highlight {
+    color: var(--highlight);
+    text-shadow: 0 0 5px var(--highlight);
+}
+
+.card {
+    border-radius: 1rem;
+    padding: 1rem;
+    background: var(--card);
+}
+
+.card-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-height: 2rem;
+    border-bottom: 2px solid var(--text-dimmed);
 }
 
 .row {
@@ -124,26 +160,43 @@ h2 {
 
 .star {
     margin-top: 1.25rem;
-    color: hsl(60, 100%, 70%);
-    text-shadow: 0 0 5px hsl(60, 100%, 70%);
+    color: var(--highlight);
+    text-shadow: 0 0 5px var(--highlight);
     font-size: 3rem;
+}
+
+.icon-button {
+    all: unset;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: none !important;
+    padding: 0.25rem;
+    color: var(--text);
+    white-space: nowrap;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.icon-button:hover {
+    color: var(--highlight);
+    text-shadow: 0 0 5px var(--highlight);
 }
 
 .hljs {
     display: block;
     overflow-x: auto;
-    padding: 1rem;
-    border-radius: 1rem;
-    min-height: 50vw;
-    max-height: 50vh;
+    padding: 0;
+    min-height: 25vw;
+    max-height: 25vh;
 
-    color: #c9d1d9;
-    background: hsl(240, 40%, 15%);
+    color: var(--text);
 }
 
 .hljs-comment,
 .hljs-punctuation {
-    color: #8b949e;
+    color: var(--text);
 }
 
 .hljs-attr,
@@ -159,22 +212,22 @@ h2 {
 .hljs-literal,
 .hljs-number,
 .hljs-doctag {
-    color: var(--literal);
+    color: var(--hljs-literal);
 }
 
 .hljs-params {
-    color: #c9d1d9;
+    color: var(--text);
 }
 
 .hljs-function {
-    color: var(--function);
+    color: var(--hljs-function);
 }
 
 .hljs-class,
 .hljs-tag,
 .hljs-title,
 .hljs-built_in {
-    color: var(--function);
+    color: var(--hljs-function);
 }
 
 .hljs-keyword,
@@ -183,16 +236,16 @@ h2 {
 .hljs-meta-keyword,
 .hljs-template-tag,
 .hljs-template-variable {
-    color: var(--keyword);
+    color: var(--hljs-keyword);
 }
 
 .hljs-string,
 .hljs-undefined {
-    color: var(--string);
+    color: var(--hljs-string);
 }
 
 .hljs-regexp {
-    color: var(--string);
+    color: var(--hljs-string);
 }
 
 .hljs-symbol {
@@ -246,15 +299,15 @@ h2 {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: hsl(240, 40%, 30%);
+    background-color: var(--button);
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: hsl(240, 40%, 12.5%);
+    background-color: var(--background);
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color:  hsl(240, 40%, 35%);
+    background-color:  var(--button-hover);
 }
