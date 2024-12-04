@@ -91,8 +91,8 @@
                 const output = document.querySelector('#console');
                 const lines = [];
 
-                console.log = (message) => {
-                    lines.push(message);
+                console.log = (...message) => {
+                    lines.push(message.join(" "));
                     output.textContent = lines.join("\n");
                 }
 
