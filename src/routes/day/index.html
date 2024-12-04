@@ -66,8 +66,8 @@
 
             load();
 
-            window.run = () => {
-                eval(javascript);
+            window.run = async () => {
+                eval("(async () => {" + javascript + "})()");
             }
 
             window.previous = () => {
@@ -83,6 +83,10 @@
             window.changeDay = () => {
                 history.pushState(null, "", `/day/${daySelector.value}`);
                 load();
+            }
+
+            async function getInput() {
+                return await (await fetch(`/solutions/${day}/input.txt`)).text();
             }
 
             async function load() {
@@ -101,16 +105,15 @@
                     window.location.href = "/";
                 }
 
-                const input = await (await fetch(`/solutions/${day}/input.txt`)).text();
                 const typescript = await (await fetch(`/solutions/${day}/main.ts`)).text();
-                
+
                 const code = document.querySelector('#code');
                 if (code) {
                     code.textContent = typescript;
                 }
                 
                 javascript = transpileModule(
-                    typescript.replace(/^const input = .*/m, `const input = \`${input}\`;`),
+                    typescript.replace(/^const input = .*/m, `const input = await getInput();`),
                     { compilerOptions: { module: "ESNext" } }
                 ).outputText;
             }
