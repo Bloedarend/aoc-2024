@@ -55,6 +55,7 @@
 
             let day;
             let javascript;
+            const lines = [];
 
             const daySelector = document.querySelector('#day-selector');
             for (let day = 1; day <= 25; day++) {
@@ -93,8 +94,6 @@
                 daySelector.value = Number(window.location.pathname.split("/").findLast(() => true) ?? "1");
 
                 const output = document.querySelector('#console');
-                const lines = [];
-
                 console.log = (...message) => {
                     lines.push(message.join(" "));
                     output.textContent = lines.join("\n");
