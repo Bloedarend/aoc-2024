@@ -2,8 +2,8 @@ const input = Deno.readTextFileSync(Deno.args[0]);
 
 const { left, right } = input
     .split("\n")
-    .reduce((acc: { left: number[], right: number[] }, cur: string) => {
-        const matches: string[] = cur.match(/\d+/g) as string[];
+    .reduce((acc: { left: number[], right: number[] }, line: string) => {
+        const matches: string[] = line.match(/\d+/g) as string[];
 
         return {
             left: [...acc.left, Number(matches[0])],
@@ -14,8 +14,8 @@ const { left, right } = input
 left.sort((a, b) => a - b);
 right.sort((a, b) => a - b);
 
-const distance = left.reduce((sum, cur, i) => sum + Math.abs(cur - right[i]), 0);
-console.log(`Distance: ${distance}`);
+const distance = left.reduce((acc, cur, i) => acc + Math.abs(cur - right[i]), 0);
+console.log(`Part 1: ${distance}`);
 
-const similarity = left.reduce((sum, cur) => sum + cur * right.filter(el => el === cur).length, 0);
-console.log(`Similarity: ${similarity}`);
+const similarity = left.reduce((acc, cur) => acc + cur * right.filter(num => num === cur).length, 0);
+console.log(`Part 2: ${similarity}`);
